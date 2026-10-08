@@ -84,31 +84,41 @@
 
         .money-note {
             position: absolute;
-            top: -70px;
+            top: -78px;
             left: var(--x);
-            min-width: 68px;
-            padding: 6px 10px;
-            color: #08130a;
-            background: linear-gradient(145deg, #b8ffb4, #23d94c 52%, #087625);
-            border: 1px solid rgba(225, 255, 225, 0.85);
-            border-radius: 5px;
-            font-size: 0.72rem;
+            width: 86px;
+            height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #173d18;
+            background:
+                radial-gradient(circle at 50% 50%, rgba(238, 255, 214, 0.95) 0 15%, transparent 16%),
+                linear-gradient(135deg, #d8efbd 0%, #82c56a 45%, #3d9148 100%);
+            border: 2px solid rgba(214, 245, 187, 0.9);
+            border-radius: 4px;
+            font-size: 0.64rem;
             font-weight: 900;
             letter-spacing: 1px;
             text-align: center;
             opacity: 0;
-            box-shadow: 0 0 14px rgba(0, 255, 42, 0.48);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5), 0 0 12px rgba(0, 255, 42, 0.25);
             transform: rotate(var(--r));
             animation: moneyFall var(--d) linear var(--delay) infinite;
+            text-shadow: 0 1px 0 rgba(255,255,255,.35);
         }
 
-        .money-note::before, .money-note::after {
-            content: '$';
-            color: rgba(0, 55, 14, 0.72);
-            font-size: 0.62rem;
+        .money-note::before,
+        .money-note::after {
+            content: 'GTA$';
+            position: absolute;
+            color: rgba(18, 67, 23, 0.72);
+            font-size: 0.48rem;
+            font-weight: 900;
         }
-        .money-note::before { margin-right: 6px; }
-        .money-note::after { margin-left: 6px; }
+
+        .money-note::before { left: 5px; top: 3px; }
+        .money-note::after { right: 5px; bottom: 3px; }
 
         @keyframes moneyFall {
             0% { top: -70px; opacity: 0; transform: translateX(0) rotate(var(--r)) rotateY(0); }
@@ -132,7 +142,8 @@
             display: flex;
             width: max-content;
             padding: 0.75rem 0;
-            animation: tickerMove 22s linear infinite;
+            animation: tickerMove 18s linear infinite;
+            will-change: transform;
         }
 
         .gta-ticker-track span {
@@ -632,7 +643,7 @@
                     <div class="price-pix"><span>Pix:</span> R$ 250,00 💰</div>
                     <div class="price-card"><span>Cartão:</span> R$ 260,00</div>
                 </div>
-                <a href="https://wa.me/5521998067253?text=Olá!%20Gostaria%20da%20Conta%20Nova%20Pacote%20Proplayer%20(PS4/PS5)." class="btn btn-card" target="_blank">Comprar via WhatsApp</a>
+                <a href="https://wa.me/5521998067253?text=Olá!%20Gostaria%20da%20Conta%20Nova%20Pacote%20Proplayer%20(PS4/PS5)%20de%20R$%20250,00%20no%20Pix." class="btn btn-card" target="_blank">Comprar via WhatsApp</a>
             </div>
         </div>
 
@@ -742,7 +753,7 @@
                     <div class="price-pix"><span>Pix:</span> R$ 220,00 💰</div>
                     <div class="price-card"><span>Cartão:</span> R$ 230,00</div>
                 </div>
-                <a href="https://wa.me/5521998067253?text=Olá!%20Gostaria%20do%20Pacote%20Proplayer%20(PS4/PS5)." class="btn btn-card" target="_blank">Comprar via WhatsApp</a>
+                <a href="https://wa.me/5521998067253?text=Olá!%20Gostaria%20do%20Pacote%20Proplayer%20(PS4/PS5)%20de%20R$%20220,00%20no%20Pix." class="btn btn-card" target="_blank">Comprar via WhatsApp</a>
             </div>
         </div>
 
@@ -1054,82 +1065,6 @@
             });
 
             revealItems.forEach(el => observer.observe(el));
-        })();
-    </script>
-
-
-
-    <!-- Música ambiente cinematográfica: inicia após a primeira interação do usuário. -->
-    <script>
-        (function () {
-            let audioStarted = false;
-            let ctx = null;
-            let master = null;
-            let timer = null;
-
-            function startTrailerMusic() {
-                if (audioStarted) return;
-                audioStarted = true;
-
-                try {
-                    ctx = new (window.AudioContext || window.webkitAudioContext)();
-                    master = ctx.createGain();
-                    master.gain.value = 0.035;
-                    master.connect(ctx.destination);
-
-                    const progression = [
-                        [110.00, 164.81, 220.00],
-                        [98.00, 146.83, 196.00],
-                        [87.31, 130.81, 174.61],
-                        [103.83, 155.56, 207.65]
-                    ];
-                    let step = 0;
-
-                    function playStep() {
-                        if (!ctx || ctx.state === 'closed') return;
-                        const now = ctx.currentTime;
-                        const notes = progression[step % progression.length];
-
-                        notes.forEach((freq, index) => {
-                            const osc = ctx.createOscillator();
-                            const gain = ctx.createGain();
-                            osc.type = index === 0 ? 'sine' : 'triangle';
-                            osc.frequency.setValueAtTime(freq, now);
-                            gain.gain.setValueAtTime(0.0001, now);
-                            gain.gain.exponentialRampToValueAtTime(index === 0 ? 0.18 : 0.07, now + 0.9);
-                            gain.gain.exponentialRampToValueAtTime(0.0001, now + 7.7);
-                            osc.connect(gain);
-                            gain.connect(master);
-                            osc.start(now);
-                            osc.stop(now + 7.8);
-                        });
-
-                        // Camada grave muito discreta para dar sensação de trailer.
-                        const bass = ctx.createOscillator();
-                        const bassGain = ctx.createGain();
-                        bass.type = 'sine';
-                        bass.frequency.setValueAtTime(notes[0] / 2, now);
-                        bassGain.gain.setValueAtTime(0.0001, now);
-                        bassGain.gain.exponentialRampToValueAtTime(0.045, now + 1.2);
-                        bassGain.gain.exponentialRampToValueAtTime(0.0001, now + 7.6);
-                        bass.connect(bassGain);
-                        bassGain.connect(master);
-                        bass.start(now);
-                        bass.stop(now + 7.7);
-
-                        step++;
-                    }
-
-                    playStep();
-                    timer = window.setInterval(playStep, 7800);
-                } catch (e) {
-                    // Se o navegador bloquear Web Audio, o site continua normalmente.
-                }
-            }
-
-            ['pointerdown', 'touchstart', 'keydown', 'scroll'].forEach(function (eventName) {
-                window.addEventListener(eventName, startTrailerMusic, { once: true, passive: true });
-            });
         })();
     </script>
 
