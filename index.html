@@ -77,7 +77,7 @@
         .money-rain {
             position: absolute;
             inset: 0;
-            z-index: 0;
+            z-index: 5;
             overflow: hidden;
             pointer-events: none;
         }
@@ -86,8 +86,8 @@
             position: absolute;
             top: -78px;
             left: var(--x);
-            width: 86px;
-            height: 42px;
+            width: 52px;
+            height: 26px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -95,11 +95,11 @@
             background:
                 radial-gradient(circle at 50% 50%, rgba(238, 255, 214, 0.95) 0 15%, transparent 16%),
                 linear-gradient(135deg, #d8efbd 0%, #82c56a 45%, #3d9148 100%);
-            border: 2px solid rgba(214, 245, 187, 0.9);
-            border-radius: 4px;
-            font-size: 0.64rem;
+            border: 1px solid rgba(214, 245, 187, 0.9);
+            border-radius: 3px;
+            font-size: 0.4rem;
             font-weight: 900;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
             text-align: center;
             opacity: 0;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5), 0 0 12px rgba(0, 255, 42, 0.25);
@@ -113,12 +113,12 @@
             content: 'GTA$';
             position: absolute;
             color: rgba(18, 67, 23, 0.72);
-            font-size: 0.48rem;
+            font-size: 0.3rem;
             font-weight: 900;
         }
 
-        .money-note::before { left: 5px; top: 3px; }
-        .money-note::after { right: 5px; bottom: 3px; }
+        .money-note::before { left: 3px; top: 2px; }
+        .money-note::after { right: 3px; bottom: 2px; }
 
         @keyframes moneyFall {
             0% { top: -70px; opacity: 0; transform: translateX(0) rotate(var(--r)) rotateY(0); }
@@ -208,8 +208,11 @@
             .logo-frame, .logo-frame::before, .money-note, .gta-ticker-track { animation: none; }
         }
 
+        .money-note { animation: moneyFall var(--d) linear var(--delay) infinite !important; }
+        .gta-ticker-track { animation: tickerMove 22s linear infinite !important; }
+
         @media (max-width: 600px) {
-            .money-note { min-width: 52px; padding: 4px 6px; font-size: 0.58rem; opacity: 0.5; }
+            .money-note { opacity: 0.5; }
             .money-note:nth-child(even) { display: none; }
             .gta-ticker-track span { padding: 0 1.2rem; font-size: 0.7rem; }
         }
@@ -552,6 +555,12 @@
 
     <div class="gta-ticker" aria-label="Destaques dos serviços">
         <div class="gta-ticker-track">
+            <span><b>GTA$</b> Dinheiro no banco</span><span>⬆️ Level personalizado</span><span>🏎️ Veículos especiais</span><span>🏢 Propriedades completas</span><span>🎮 PS4 • PS5 • Xbox • PC</span>
+            <span><b>GTA$</b> Dinheiro no banco</span><span>⬆️ Level personalizado</span><span>🏎️ Veículos especiais</span><span>🏢 Propriedades completas</span><span>🎮 PS4 • PS5 • Xbox • PC</span>
+            <span><b>GTA$</b> Dinheiro no banco</span><span>⬆️ Level personalizado</span><span>🏎️ Veículos especiais</span><span>🏢 Propriedades completas</span><span>🎮 PS4 • PS5 • Xbox • PC</span>
+            <span><b>GTA$</b> Dinheiro no banco</span><span>⬆️ Level personalizado</span><span>🏎️ Veículos especiais</span><span>🏢 Propriedades completas</span><span>🎮 PS4 • PS5 • Xbox • PC</span>
+            <span><b>GTA$</b> Dinheiro no banco</span><span>⬆️ Level personalizado</span><span>🏎️ Veículos especiais</span><span>🏢 Propriedades completas</span><span>🎮 PS4 • PS5 • Xbox • PC</span>
+            <span><b>GTA$</b> Dinheiro no banco</span><span>⬆️ Level personalizado</span><span>🏎️ Veículos especiais</span><span>🏢 Propriedades completas</span><span>🎮 PS4 • PS5 • Xbox • PC</span>
             <span><b>GTA$</b> Dinheiro no banco</span><span>⬆️ Level personalizado</span><span>🏎️ Veículos especiais</span><span>🏢 Propriedades completas</span><span>🎮 PS4 • PS5 • Xbox • PC</span>
             <span><b>GTA$</b> Dinheiro no banco</span><span>⬆️ Level personalizado</span><span>🏎️ Veículos especiais</span><span>🏢 Propriedades completas</span><span>🎮 PS4 • PS5 • Xbox • PC</span>
         </div>
